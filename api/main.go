@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -23,7 +22,6 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 	client := f.NewFaunaClient(os.Getenv("FAUNA_SECRET"))
-	fmt.Printf("client: %v", client)
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
