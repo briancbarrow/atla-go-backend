@@ -23,5 +23,8 @@ func (app *application) routes() *mux.Router {
 
 	// TODO: Add authentication (This might not be needed if we limit to just GET requests, but it would be a good exercise in knowing how to do it)
 
+	// TODO: Add Hosting
+	// TODO: Make sure Logging is set up correctly
+
 	return r
 }
