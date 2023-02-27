@@ -29,6 +29,9 @@ func (app *application) getCharacter(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("id is missing in parameters")
 	}
 	i, err := strconv.Atoi(id)
+	if err != nil {
+		fmt.Println("id is not an integer")
+	}
 	res, err := app.client.Query(
 		f.Map(
 			f.Paginate(f.MatchTerm(f.Index("characters_by_id"), i)),
