@@ -18,8 +18,12 @@ func (app *application) routes() *mux.Router {
 	// r.HandleFunc("/api/character?search={}", app.searchForCharacter)
 
 	// TODO: Add rate limits
+	// https://github.com/didip/tollbooth
+	// https://dev.to/plutov/rate-limiting-http-requests-in-go-based-on-ip-address-542g
 
 	// TODO: Add restriction to just GET requests
+
+	// TODO: Add Docs
 
 	// TODO: Add authentication (This might not be needed if we limit to just GET requests, but it would be a good exercise in knowing how to do it)
 
