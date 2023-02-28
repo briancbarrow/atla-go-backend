@@ -10,12 +10,11 @@ func (app *application) routes() *mux.Router {
 
 	r := mux.NewRouter()
 	r.PathPrefix("/docs").Handler(http.StripPrefix("/docs", http.FileServer(http.Dir("./docs/public/"))))
-	r.HandleFunc("/api/characters", app.api)
+	r.HandleFunc("/api/characters", app.searchForCharacter).Queries("search", "{search}")
+	r.HandleFunc("/api/characters", app.allCharacters)
 	r.HandleFunc("/api/characters/{id}", app.getCharacter)
 	// catch all route to redirect to docs
 	r.PathPrefix("/").Handler(http.HandlerFunc(app.getDocs))
-	// TODO: add search route
-	// r.HandleFunc("/api/character?search={}", app.searchForCharacter)
 
 	// TODO: Add rate limits
 	// https://github.com/didip/tollbooth

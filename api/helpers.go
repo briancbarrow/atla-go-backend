@@ -1,15 +1,14 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"runtime/debug"
-
-	"github.com/fauna/faunadb-go/v4/faunadb"
 )
 
-func respondWithJSON(w http.ResponseWriter, code int, payload faunadb.Value) error {
-	response, err := faunadb.MarshalJSON(payload)
+func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) error {
+	response, err := json.Marshal(payload)
 	if err != nil {
 		return err
 	}
