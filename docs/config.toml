@@ -1,4 +1,0 @@
-baseURL = 'http://localhost:4444/docs'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
-theme = 'PaperMod'
