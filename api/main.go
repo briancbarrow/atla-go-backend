@@ -24,6 +24,10 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 	serverAPIOptions := options.ServerAPI(options.ServerAPIVersion1)
 	clientOptions := options.Client().
 		ApplyURI(os.Getenv("MONGO_URI")).
@@ -46,10 +50,10 @@ func main() {
 	srv := &http.Server{
 		ErrorLog: errorLog,
 		Handler:  app.routes(),
-		Addr:     ":4444",
+		Addr:     ":" + port,
 	}
 
-	infoLog.Printf("Starting server on %s", ":4444")
+	infoLog.Printf("Starting server on %s", ":"+port)
 	err = srv.ListenAndServe()
 	infoLog.Printf("Server stopped")
 	errorLog.Fatal(err)
