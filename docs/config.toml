@@ -32,7 +32,7 @@ summaryLength = 30
   homepage_button_link = '/docs'
   homepage_button_text = 'Read The Docs'
   homepage_intro = 'ATLA is a documentation theme built with Hugo. The design and functionality is intentionally minimal.'
-  homepage_image = '/images/terminal.gif'
+  homepage_image = 'https://imgs.search.brave.com/5f7pGQwxqBnGay9-icNFx8gQnMTMqDjTWGhm3DPepgA/rs:fit:498:249:1/g:ce/aHR0cHM6Ly9tZWRp/YTEudGVub3IuY29t/L2ltYWdlcy8wNzk3/NmNmZjAzMDI5ZTQw/ZGM0YzMzYzVmNmVm/ODNkYy90ZW5vci5n/aWY_aXRlbWlkPTY1/MjA0NjE.gif'
 
   ## You can enable to add anchor links to header elements
   # enable_anchor_link = true

@@ -1,6 +1,5 @@
 ---
-title: 'Hugo Whisper Docs'
-date: 2018-11-28T15:14:39+10:00
+title: 'ATLA API Docs'
 ---
 
-Whisper is a documentation theme built with Hugo. The design and functionality is intentionally minimal. 
+This is a API you can use to get information about characters from the best show ever made. [Avatar: The Last Airbender](https://avatar.fandom.com/wiki/Avatar_Wiki)

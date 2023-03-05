@@ -70,9 +70,9 @@ func (app *application) getCharacter(w http.ResponseWriter, r *http.Request) {
 	respondWithJSON(w, http.StatusOK, result)
 }
 
-func (app *application) getDocs(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, "/docs", http.StatusSeeOther)
-}
+// func (app *application) getDocs(w http.ResponseWriter, r *http.Request) {
+// 	http.Redirect(w, r, "/docs", http.StatusSeeOther)
+// }
 
 func (app *application) searchForCharacter(w http.ResponseWriter, r *http.Request) {
 	search := r.URL.Query().Get("search")
