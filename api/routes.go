@@ -22,6 +22,8 @@ func (app *application) routes() *mux.Router {
 
 	// TODO: Add Docs
 
+	//TODO: add route and handler function to be able to search by NAME, then other terms
+
 	// TODO: Add authentication (This might not be needed if we limit to just GET requests, but it would be a good exercise in knowing how to do it)
 
 	// TODO: Add Hosting
