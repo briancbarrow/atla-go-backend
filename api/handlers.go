@@ -68,6 +68,13 @@ func (app *application) getCharacter(w http.ResponseWriter, r *http.Request) {
 	err = coll.FindOne(context.TODO(), bson.M{"id": i}).Decode(&result)
 
 	respondWithJSON(w, http.StatusOK, result)
+
+	// use the FindOne query from mongodb
+}
+
+func (app *application) getCharacterByName(w http.ResponseWriter, r *http.Request) {
+	coll := app.mongoClient.Database("Atla-API").Collection("characters")
+
 }
 
 // func (app *application) getDocs(w http.ResponseWriter, r *http.Request) {
