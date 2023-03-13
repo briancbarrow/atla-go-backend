@@ -10,6 +10,7 @@ func (app *application) routes() *mux.Router {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/api/characters", app.searchForCharacter).Queries("search", "{search}")
+	r.HandleFunc("/api/characters", app.searchCharacterByName).Queries("name", "{name}")
 	r.HandleFunc("/api/characters", app.allCharacters)
 	r.HandleFunc("/api/characters/{id}", app.getCharacter)
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./docs/public/")))
@@ -21,6 +22,8 @@ func (app *application) routes() *mux.Router {
 	// TODO: Add restriction to just GET requests
 
 	// TODO: Add Docs
+
+	//TODO: add route and handler function to be able to search by NAME, then other terms
 
 	// TODO: Add authentication (This might not be needed if we limit to just GET requests, but it would be a good exercise in knowing how to do it)
 
