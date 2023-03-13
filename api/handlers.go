@@ -96,12 +96,12 @@ func (app *application) searchForCharacter(w http.ResponseWriter, r *http.Reques
 		panic(err)
 	}
 
-	for _, result := range results {
-		cursor.Decode(&result)
-		if err != nil {
-			panic(err)
-		}
+	// for _, result := range results {
+	// 	cursor.Decode(&result)
+	// 	if err != nil {
+	// 		panic(err)
+	// 	}
 
-	}
+	// }
 	respondWithJSON(w, http.StatusOK, results)
 }
