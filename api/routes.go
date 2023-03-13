@@ -10,9 +10,9 @@ func (app *application) routes() *mux.Router {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/api/characters", app.searchForCharacter).Queries("search", "{search}")
+	r.HandleFunc("/api/characters", app.searchCharacterByName).Queries("name", "{name}")
 	r.HandleFunc("/api/characters", app.allCharacters)
 	r.HandleFunc("/api/characters/{id}", app.getCharacter)
-	r.HandleFunc("/api/characters/{name}", app.getCharacter)
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./docs/public/")))
 
 	// TODO: Add rate limits

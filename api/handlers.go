@@ -8,6 +8,7 @@ import (
 
 	mux "github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type Character struct {
@@ -31,7 +32,7 @@ type Character struct {
 
 func (app *application) allCharacters(w http.ResponseWriter, r *http.Request) {
 	coll := app.mongoClient.Database("Atla-API").Collection("characters")
-	cursor, err := coll.Find(context.TODO(), bson.D{})
+	cursor, err := coll.Find(context.TODO(), bson.D{}, options.Find().SetSort(bson.D{{"id", 1}}))
 	if err != nil {
 		panic(err)
 	}
@@ -72,8 +73,22 @@ func (app *application) getCharacter(w http.ResponseWriter, r *http.Request) {
 	// use the FindOne query from mongodb
 }
 
-func (app *application) getCharacterByName(w http.ResponseWriter, r *http.Request) {
+func (app *application) searchCharacterByName(w http.ResponseWriter, r *http.Request) {
+	name := r.URL.Query().Get("name")
+	fmt.Println(name)
 	coll := app.mongoClient.Database("Atla-API").Collection("characters")
+	cursor, err := coll.Find(context.TODO(), bson.M{
+		"$or": []bson.M{
+			{"name": bson.M{"$regex": name, "$options": "i"}},
+		}},
+		options.Find().SetSort(bson.D{{"id", 1}}))
+
+	var results []Character
+	if err = cursor.All(context.TODO(), &results); err != nil {
+		panic(err)
+	}
+
+	respondWithJSON(w, http.StatusOK, results)
 
 }
 
@@ -96,19 +111,19 @@ func (app *application) searchForCharacter(w http.ResponseWriter, r *http.Reques
 			{"profession": bson.M{"$regex": search, "$options": "i"}},
 			{"weapons": bson.M{"$regex": search, "$options": "i"}},
 			{"ethnicity": bson.M{"$regex": search, "$options": "i"}},
-		}})
+		}}, options.Find().SetSort(bson.D{{"id", 1}}))
 
 	var results []Character
 	if err = cursor.All(context.TODO(), &results); err != nil {
 		panic(err)
 	}
 
-	for _, result := range results {
-		cursor.Decode(&result)
-		if err != nil {
-			panic(err)
-		}
+	// for _, result := range results {
+	// 	cursor.Decode(&result)
+	// 	if err != nil {
+	// 		panic(err)
+	// 	}
 
-	}
+	// }
 	respondWithJSON(w, http.StatusOK, results)
 }
