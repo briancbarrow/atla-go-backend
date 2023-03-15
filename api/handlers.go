@@ -130,6 +130,25 @@ func (app *application) searchCharacterByAliases(w http.ResponseWriter, r *http.
 
 }
 
+func (app *application) searchCharacterByAffiliation(w http.ResponseWriter, r *http.Request) {
+	affiliation := r.URL.Query().Get("affiliation")
+	fmt.Println(affiliation)
+	coll := app.mongoClient.Database("Atla-API").Collection("characters")
+	cursor, err := coll.Find(context.TODO(), bson.M{
+		"$or": []bson.M{
+			{"affiliation": bson.M{"$regex": affiliation, "$options": "i"}},
+		}},
+		options.Find().SetSort(bson.D{{"id", 1}}))
+
+	var results []Character
+	if err = cursor.All(context.TODO(), &results); err != nil {
+		panic(err)
+	}
+
+	respondWithJSON(w, http.StatusOK, results)
+
+}
+
 // func (app *application) getDocs(w http.ResponseWriter, r *http.Request) {
 // 	http.Redirect(w, r, "/docs", http.StatusSeeOther)
 // }
