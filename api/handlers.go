@@ -92,6 +92,25 @@ func (app *application) searchCharacterByName(w http.ResponseWriter, r *http.Req
 
 }
 
+func (app *application) searchCharacterByNicknames(w http.ResponseWriter, r *http.Request) {
+	nicknames := r.URL.Query().Get("nicknames")
+	fmt.Println(nicknames)
+	coll := app.mongoClient.Database("Atla-API").Collection("characters")
+	cursor, err := coll.Find(context.TODO(), bson.M{
+		"$or": []bson.M{
+			{"nicknames": bson.M{"$regex": nicknames, "$options": "i"}},
+		}},
+		options.Find().SetSort(bson.D{{"id", 1}}))
+
+	var results []Character
+	if err = cursor.All(context.TODO(), &results); err != nil {
+		panic(err)
+	}
+
+	respondWithJSON(w, http.StatusOK, results)
+
+}
+
 // func (app *application) getDocs(w http.ResponseWriter, r *http.Request) {
 // 	http.Redirect(w, r, "/docs", http.StatusSeeOther)
 // }
