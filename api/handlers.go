@@ -225,6 +225,25 @@ func (app *application) searchCharacterByWeapons(w http.ResponseWriter, r *http.
 
 }
 
+func (app *application) searchCharacterByEthnicity(w http.ResponseWriter, r *http.Request) {
+	ethnicity := r.URL.Query().Get("ethnicity")
+	fmt.Println(ethnicity)
+	coll := app.mongoClient.Database("Atla-API").Collection("characters")
+	cursor, err := coll.Find(context.TODO(), bson.M{
+		"$or": []bson.M{
+			{"ethnicity": bson.M{"$regex": ethnicity, "$options": "i"}},
+		}},
+		options.Find().SetSort(bson.D{{"id", 1}}))
+
+	var results []Character
+	if err = cursor.All(context.TODO(), &results); err != nil {
+		panic(err)
+	}
+
+	respondWithJSON(w, http.StatusOK, results)
+
+}
+
 // func (app *application) getDocs(w http.ResponseWriter, r *http.Request) {
 // 	http.Redirect(w, r, "/docs", http.StatusSeeOther)
 // }
