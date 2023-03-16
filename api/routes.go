@@ -16,7 +16,7 @@ func (app *application) routes() *mux.Router {
 	r.HandleFunc("/api/characters", app.searchCharacterByAffiliation).Queries("affiliation", "{affiliation}")
 	r.HandleFunc("/api/characters", app.searchCharacterByFightingStyle).Queries("fightingStyle", "{fightingStyle}")
 	r.HandleFunc("/api/characters", app.searchCharacterByNationality).Queries("nationality", "{nationality}")
-	// r.HandleFunc("/api/characters", app.searchCharacterByProfession).Queries("profession", "{profession}")
+	r.HandleFunc("/api/characters", app.searchCharacterByProfession).Queries("profession", "{profession}")
 	// r.HandleFunc("/api/characters", app.searchCharacterByWeapons).Queries("weapons", "{weapons}")
 	// r.HandleFunc("/api/characters", app.searchCharacterByEthnicity).Queries("ethnicity", "{ethnicity}")
 	r.HandleFunc("/api/characters", app.allCharacters)
