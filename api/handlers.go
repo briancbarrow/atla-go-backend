@@ -206,6 +206,25 @@ func (app *application) searchCharacterByProfession(w http.ResponseWriter, r *ht
 
 }
 
+func (app *application) searchCharacterByWeapons(w http.ResponseWriter, r *http.Request) {
+	weapons := r.URL.Query().Get("weapons")
+	fmt.Println(weapons)
+	coll := app.mongoClient.Database("Atla-API").Collection("characters")
+	cursor, err := coll.Find(context.TODO(), bson.M{
+		"$or": []bson.M{
+			{"weapons": bson.M{"$regex": weapons, "$options": "i"}},
+		}},
+		options.Find().SetSort(bson.D{{"id", 1}}))
+
+	var results []Character
+	if err = cursor.All(context.TODO(), &results); err != nil {
+		panic(err)
+	}
+
+	respondWithJSON(w, http.StatusOK, results)
+
+}
+
 // func (app *application) getDocs(w http.ResponseWriter, r *http.Request) {
 // 	http.Redirect(w, r, "/docs", http.StatusSeeOther)
 // }
