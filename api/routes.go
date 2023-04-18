@@ -11,7 +11,7 @@ func (app *application) routes() *mux.Router {
 	r := mux.NewRouter()
 	r.HandleFunc("/api/characters", app.searchForCharacter).Queries("search", "{search}")
 	r.HandleFunc("/api/characters", app.searchCharacterByName).Queries("name", "{name}")
-	r.HandleFunc("/api/characters", app.searchCharacterByNicknames).Queries("nicknames", "{nicknamenames}")
+	r.HandleFunc("/api/characters", app.searchCharacterByNicknames).Queries("nicknames", "{nicknames}")
 	r.HandleFunc("/api/characters", app.searchCharacterByAliases).Queries("aliases", "{aliases}")
 	r.HandleFunc("/api/characters", app.searchCharacterByAffiliation).Queries("affiliation", "{affiliation}")
 	r.HandleFunc("/api/characters", app.searchCharacterByFightingStyle).Queries("fightingStyle", "{fightingStyle}")
