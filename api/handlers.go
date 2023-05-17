@@ -92,6 +92,158 @@ func (app *application) searchCharacterByName(w http.ResponseWriter, r *http.Req
 
 }
 
+func (app *application) searchCharacterByNicknames(w http.ResponseWriter, r *http.Request) {
+	nicknames := r.URL.Query().Get("nicknames")
+	fmt.Println(nicknames)
+	coll := app.mongoClient.Database("Atla-API").Collection("characters")
+	cursor, err := coll.Find(context.TODO(), bson.M{
+		"$or": []bson.M{
+			{"nicknames": bson.M{"$regex": nicknames, "$options": "i"}},
+		}},
+		options.Find().SetSort(bson.D{{"id", 1}}))
+
+	var results []Character
+	if err = cursor.All(context.TODO(), &results); err != nil {
+		panic(err)
+	}
+
+	respondWithJSON(w, http.StatusOK, results)
+
+}
+
+func (app *application) searchCharacterByAliases(w http.ResponseWriter, r *http.Request) {
+	aliases := r.URL.Query().Get("aliases")
+	fmt.Println(aliases)
+	coll := app.mongoClient.Database("Atla-API").Collection("characters")
+	cursor, err := coll.Find(context.TODO(), bson.M{
+		"$or": []bson.M{
+			{"aliases": bson.M{"$regex": aliases, "$options": "i"}},
+		}},
+		options.Find().SetSort(bson.D{{"id", 1}}))
+
+	var results []Character
+	if err = cursor.All(context.TODO(), &results); err != nil {
+		panic(err)
+	}
+
+	respondWithJSON(w, http.StatusOK, results)
+
+}
+
+func (app *application) searchCharacterByAffiliation(w http.ResponseWriter, r *http.Request) {
+	affiliation := r.URL.Query().Get("affiliation")
+	fmt.Println(affiliation)
+	coll := app.mongoClient.Database("Atla-API").Collection("characters")
+	cursor, err := coll.Find(context.TODO(), bson.M{
+		"$or": []bson.M{
+			{"affiliation": bson.M{"$regex": affiliation, "$options": "i"}},
+		}},
+		options.Find().SetSort(bson.D{{"id", 1}}))
+
+	var results []Character
+	if err = cursor.All(context.TODO(), &results); err != nil {
+		panic(err)
+	}
+
+	respondWithJSON(w, http.StatusOK, results)
+
+}
+
+func (app *application) searchCharacterByFightingStyle(w http.ResponseWriter, r *http.Request) {
+	fightingStyle := r.URL.Query().Get("fightingStyle")
+	fmt.Println(fightingStyle)
+	coll := app.mongoClient.Database("Atla-API").Collection("characters")
+	cursor, err := coll.Find(context.TODO(), bson.M{
+		"$or": []bson.M{
+			{"fightingStyle": bson.M{"$regex": fightingStyle, "$options": "i"}},
+		}},
+		options.Find().SetSort(bson.D{{"id", 1}}))
+
+	var results []Character
+	if err = cursor.All(context.TODO(), &results); err != nil {
+		panic(err)
+	}
+
+	respondWithJSON(w, http.StatusOK, results)
+
+}
+
+func (app *application) searchCharacterByNationality(w http.ResponseWriter, r *http.Request) {
+	nationality := r.URL.Query().Get("nationality")
+	fmt.Println(nationality)
+	coll := app.mongoClient.Database("Atla-API").Collection("characters")
+	cursor, err := coll.Find(context.TODO(), bson.M{
+		"$or": []bson.M{
+			{"nationality": bson.M{"$regex": nationality, "$options": "i"}},
+		}},
+		options.Find().SetSort(bson.D{{"id", 1}}))
+
+	var results []Character
+	if err = cursor.All(context.TODO(), &results); err != nil {
+		panic(err)
+	}
+
+	respondWithJSON(w, http.StatusOK, results)
+
+}
+
+func (app *application) searchCharacterByProfession(w http.ResponseWriter, r *http.Request) {
+	profession := r.URL.Query().Get("profession")
+	fmt.Println(profession)
+	coll := app.mongoClient.Database("Atla-API").Collection("characters")
+	cursor, err := coll.Find(context.TODO(), bson.M{
+		"$or": []bson.M{
+			{"profession": bson.M{"$regex": profession, "$options": "i"}},
+		}},
+		options.Find().SetSort(bson.D{{"id", 1}}))
+
+	var results []Character
+	if err = cursor.All(context.TODO(), &results); err != nil {
+		panic(err)
+	}
+
+	respondWithJSON(w, http.StatusOK, results)
+
+}
+
+func (app *application) searchCharacterByWeapons(w http.ResponseWriter, r *http.Request) {
+	weapons := r.URL.Query().Get("weapons")
+	fmt.Println(weapons)
+	coll := app.mongoClient.Database("Atla-API").Collection("characters")
+	cursor, err := coll.Find(context.TODO(), bson.M{
+		"$or": []bson.M{
+			{"weapons": bson.M{"$regex": weapons, "$options": "i"}},
+		}},
+		options.Find().SetSort(bson.D{{"id", 1}}))
+
+	var results []Character
+	if err = cursor.All(context.TODO(), &results); err != nil {
+		panic(err)
+	}
+
+	respondWithJSON(w, http.StatusOK, results)
+
+}
+
+func (app *application) searchCharacterByEthnicity(w http.ResponseWriter, r *http.Request) {
+	ethnicity := r.URL.Query().Get("ethnicity")
+	fmt.Println(ethnicity)
+	coll := app.mongoClient.Database("Atla-API").Collection("characters")
+	cursor, err := coll.Find(context.TODO(), bson.M{
+		"$or": []bson.M{
+			{"ethnicity": bson.M{"$regex": ethnicity, "$options": "i"}},
+		}},
+		options.Find().SetSort(bson.D{{"id", 1}}))
+
+	var results []Character
+	if err = cursor.All(context.TODO(), &results); err != nil {
+		panic(err)
+	}
+
+	respondWithJSON(w, http.StatusOK, results)
+
+}
+
 // func (app *application) getDocs(w http.ResponseWriter, r *http.Request) {
 // 	http.Redirect(w, r, "/docs", http.StatusSeeOther)
 // }
