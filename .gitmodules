@@ -1,3 +1,7 @@
 [submodule "docs/hugo-PaperMod"]
 	path = docs/hugo-PaperMod
 	url = https://github.com/adityatelange/hugo-PaperMod
+
+[submodule "docs/themes/hugo-whisper-theme"]
+	path = docs/themes/hugo-whisper-theme
+	url = https://github.com/jugglerx/hugo-whisper-theme
